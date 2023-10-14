@@ -1,86 +1,91 @@
-o read the given data and perform the univariate analysis with different types of plots.
+ODD2023-DataScience-Ex-03
+Ex-03 Univariate Analysis
+Aim:
+To read the given data and perform the univariate analysis with different types of plots.
 
 Explanation:
 Univariate analysis is basically the simplest form to analyze data. Uni means one and this means that the data has only one kind of variable. The major reason for univariate analysis is to use the data to describe. The analysis will take data, summarise it, and then find some pattern in the data.
 
 Algorithm:
-Step1
+Step1:
 Read the given data.
 
-Step2
+Step2:
 Get the information about the data.
 
-Step3
+Step3:
 Remove the null values from the data.
 
-Step4
+Step4:
 Mention the datatypes from the data.
 
-Step5
+Step5:
 Count the values from the data.
 
+Step6:
+Do plots like boxplots,countplot,distribution plot,histogram plot.
+
 Program:
-Developed By : HARSHINI M
-Register number: 212220220016
-Superstore.csv
+DEVELOPED BY : HARSHINI M
+
+REGISTER NO : 212220220016
+
+- Diabetes.csv
+```Python 
 import pandas as pd
-import numpy as np
 import seaborn as sns
-df=pd.read_csv('SuperStore.csv')
-print(df)
+import numpy as np
+from scipy import stats
+from google.colab import files
+df=pd.read_csv('diabetes.csv')
 df.head()
-df.info()
-df.dtypes
-df['Postal Code'].value_counts()
-sns.boxplot(x='Postal Code', data=df)
-sns.countplot(x='Postal Code',data=df)
-sns.distplot(df["Postal Code"])
 df.describe()
-Diabetes.csv
-import pandas as pd
-import numpy as np
-import seaborn as sns
-df = pd.read_csv("/diabetes.csv")
-df
-df.info()
 df.isnull().sum()
-df.dtypes
-df.describe()
-df['Glucose'].value_counts()
+df.info()
 sns.boxplot(x="Glucose",data=df)
+Glucose_q1 = df['Glucose'].quantile(0.25)
+Glucose_q3 = df['Glucose'].quantile(0.75)
+Glucose_IQR = Glucose_q3 - Glucose_q1
+Glucose_low = Glucose_q1 - 1.5 * Glucose_IQR
+Glucose_high = Glucose_q3 + 1.5 * Glucose_IQR
+df=df[((df['Glucose']>=Glucose_low)&(df['Glucose']<=Glucose_high))]
 sns.countplot(x="Glucose",data=df)
 sns.distplot(df['Glucose'])
 sns.histplot(x="Glucose",data=df)
-df.skew()
-df.kurtosis()
-employeesal.csv
+Output(diabetes.csv) :
+1 2 3 4 5 6 7 8
+SuperStore.csv:
 import pandas as pd
-df=pd.read_csv("/content/employeesal.csv")
-df
-df.info()
-df.dtypes
-df['Salary'].value_counts()
-df.describe()
 import seaborn as sns
+import numpy as np
+from scipy import stats
+from google.colab import files
+df=pd.read_csv('SuperStore.csv')
+df.head()
+df.describe()
+df.isnull().sum()
+df.info()
+df['Postal Code']=df['Postal Code'].fillna(method='ffill')
+sns.boxplot(x='Postal Code', data=df)
+sns.countplot(x='Postal Code',data=df)
+sns.distplot(df["Postal Code"])
+sns.histplot(x="Postal Code",data=df)
+Output(SuperStore.csv) : 1 1 1 2 1 3' 1 4 1 5 1 6 1 7 1 8
+employeesal.csv:
+import pandas as pd
+import seaborn as sns
+import numpy as np
+from scipy import stats
+from google.colab import files
+df=pd.read_csv('employeesal.csv')
+df.head()
+df.describe()
+df.isnull().sum()
+df.info()
 sns.boxplot(x='Experience_Years',data=df)
 sns.countplot(x="Experience_Years",data=df)
 sns.distplot(df['Experience_Years'])
 sns.histplot(x="Experience_Years",data=df)
-df.skew()
-sns.histplot(x='Salary',data=df)
-sns.distplot(df['ID'])
-df.kurtosis()
-sns.boxplot(x='Salary',data=df)
-sns.boxplot(x='Experience_Years',data=df)
-Output:
-Superstore.csv
-O1 1 O O2 O3 O4 O5 O6 O7 O8 O9
-
-Diabetes.csv
-D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11
-
-employeesal.csv
-1d 1 1d 2d 3d 4d 5d 6d 7d 8d 9d 10d 11d 12d
-
-RESULT:
-Hence the univariate analysis is verified.
+Output(employeesal.csv) : 2 1 2 2 2 3 2 4 2 5 2 6 2 7 2 8
+Result:
+Thus we have read the given data and performed the univariate analysis with different types of plots.
